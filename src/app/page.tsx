@@ -23,7 +23,7 @@ export default function Home() {
         
         <div className="sidebar-title">
           <h1>Sami <span>Yıldız</span></h1>
-          <p>Siber Güvenlik Uzmanı <br/> Penetration Tester</p>
+          <p>Yazılım Mühendisi <br/> Siber Güvenlik Uzmanı</p>
         </div>
 
         <nav className="sidebar-nav">
@@ -50,10 +50,10 @@ export default function Home() {
               Haliç Üniversitesi Yazılım Mühendisliği bölümünden İngilizce eğitim diliyle ve tam burslu olarak mezun oldum. Yazılım geliştirme süreçlerinde frontend ve backend taraflarını kapsayan çeşitli full-stack projelerde yer alarak uygulama geliştirme deneyimi edindim.
             </p>
             <p style={{ marginTop: '1rem' }}>
-              Şu anda siber güvenlik alanında çalışmakta, özellikle penetrasyon testleri (pentesting) ve web uygulama güvenliği üzerine çalışmalar yürütmekteyim. Bug bounty odaklı güvenlik testlerinin yanı sıra SOC süreçleri, güvenlik mimarisi ve genel bilgi güvenliği yaklaşımlarıyla ilgili çalışmalarda yer alma ve bu alanlarda deneyim kazanma fırsatı buldum.
+              Geliştirme süreçlerimi Application Security (AppSec) ve Security by Design prensipleriyle destekliyorum. Web uygulama güvenliği ve pentest pratiğimi doğrudan mimariye yansıtarak; OWASP standartlarına uygun, güvenli API&apos;lar, kimlik doğrulama mekanizmaları ve zafiyetlere karşı dirençli backend servisleri geliştiriyorum.
             </p>
             <p style={{ marginTop: '1rem' }}>
-              Ayrıca bulut teknolojileri ve yapay zeka alanlarına ilgi duymakta, bu teknolojilerin güvenlik boyutları dahil olmak üzere güncel gelişmeleri takip etmeye ve bu alanlarda yetkinliğimi artırmaya devam etmekteyim.
+              Cloud altyapıları, containerization (Docker) ve modern CI/CD süreçlerini projelerime entegre ediyor; yapay zekâ araçlarını geliştirme iş akışlarıma dahil ederek performanslı ve ölçeklenebilir sistemler üretiyorum.
             </p>
           </div>
         </section>
@@ -112,18 +112,6 @@ export default function Home() {
             <div className="matrix-overlay">
               <div className="contact-matrix-grid">
                 
-                {/* COMPTIA SECURITY+ */}
-                <div className="contact-inner-card cert-card">
-                  <div className="cert-logo-container">
-                    <img src="/comptia-security.png" alt="CompTIA Security+" className="cert-logo" />
-                  </div>
-                  <h3>CompTIA Security+</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', flexGrow: 1 }}>
-                    Siber güvenlik dünyasının temel taşı sayılan bu sertifika ile ağ güvenliği, uyumluluk, operasyonel güvenlik ve tehdit yönetimi alanlarında global standartlarda yetkinlik kanıtlanmıştır.
-                  </p>
-                  <a href="#" className="btn">[ SERTİFİKAYI DOĞRULA ]</a>
-                </div>
-
                 {/* AWS CLOUD PRACTITIONER */}
                 <div className="contact-inner-card cert-card">
                   <div className="cert-logo-container">
@@ -139,12 +127,17 @@ export default function Home() {
                 </div>
 
                 {/* EF-SET SERTİFİKASI */}
-                <div className="contact-inner-card cert-card cert-card-compact" style={{ gridColumn: 'span 2' }}>
+                <div className="contact-inner-card cert-card">
+                  <div className="cert-logo-container">
+                    <span className="cert-wordmark">EF SET</span>
+                  </div>
                   <h3>EF-SET İngilizce Sertifikası</h3>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', flexGrow: 1 }}>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', flexGrow: 1 }}>
                     B2 Upper Intermediate (Orta Üstü) seviye. Karmaşık metinleri anlama, akıcı iletişim kurma ve teknik konularda detaylı fikir alışverişinde bulunabilme yetkinliğini temsil eder.
                   </p>
-                  <a href="https://cert.efset.org/en/Cmb9M4" target="_blank" rel="noopener noreferrer" className="btn" style={{ width: 'fit-content' }}>[ SERTİFİKAYI DOĞRULA ]</a>
+                  <a href="https://cert.efset.org/en/Cmb9M4" target="_blank" rel="noopener noreferrer" className="btn">
+                    [ SERTİFİKAYI DOĞRULA ]
+                  </a>
                 </div>
 
 
