@@ -13,8 +13,6 @@ export const profile = {
   location: 'İstanbul, Türkiye',
   github: 'https://github.com/sami373761',
   linkedin: 'https://www.linkedin.com/in/sami-yildiz/',
-  // CV dosyasını public/ klasörüne "cv.pdf" adıyla koyman yeterli
-  cvUrl: '/cv.pdf',
   lastUpdated: 'Kasım 2026',
 };
 
@@ -38,7 +36,7 @@ export const projects: Project[] = [
     title: 'RecoVision',
     summary:
       'Kullanıcıların izleme ve okuma alışkanlıklarını analiz edip görselleştiren, yapay zekâ destekli chatbot ile öneri sunan içerik keşif platformu.',
-    stack: ['Python', 'Django', 'AWS S3', 'Google Cloud Run', 'AI Chatbot'],
+    stack: ['Python', 'Django', 'AWS S3', 'Google Cloud'],
     logo: '/recovision-logo.svg',
     repoUrl: 'https://github.com/sami373761/RecoVision2/tree/master',
     points: [
@@ -174,7 +172,7 @@ export type SkillItem = string | { name: string; note: string };
 export const skills: { category: string; items: SkillItem[] }[] = [
   { category: 'Languages', items: ['Bash', 'Python', 'C++', 'JavaScript', 'PHP'] },
   { category: 'Frontend', items: ['React', 'Next.js'] },
-  { category: 'Backend & Cloud', items: ['Node.js', 'Django', 'REST API', 'AWS', 'Google Cloud Run'] },
+  { category: 'Backend & Cloud', items: ['Node.js', 'Django', 'REST API', 'AWS', 'Google Cloud'] },
   { category: 'Databases', items: ['PostgreSQL', 'MySQL'] },
   { category: 'Security / DevOps', items: ['Web App Pentest', 'Docker', 'Linux', 'Nginx', 'Git'] },
 ];
