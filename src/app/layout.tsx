@@ -3,11 +3,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://samiyildiz.net.tr'),
-  title: 'Sami Yıldız | Siber Güvenlik Uzmanı',
-  description: 'Sami Yıldız - Siber Güvenlik Uzmanı ve Penetration Tester Portfolyosu. Web uygulamaları güvenliği ve bug bounty odaklı güvenlik testleri.',
+  title: 'Sami Yıldız | Full-Stack Yazılım Mühendisi',
+  description: 'Sami Yıldız - Application Security odaklı Full-Stack Yazılım Mühendisi. Güvenli API’lar, web ve mobil uygulamalar, cloud altyapıları.',
   openGraph: {
-    title: 'Sami Yıldız | Siber Güvenlik Uzmanı',
-    description: 'Siber Güvenlik Uzmanı ve Penetration Tester portfolyo web sitesi.',
+    title: 'Sami Yıldız | Full-Stack Yazılım Mühendisi',
+    description: 'Application Security odaklı Full-Stack Yazılım Mühendisi portfolyosu.',
     url: 'https://samiyildiz.net.tr',
     siteName: 'Sami Yıldız Portfolio',
     locale: 'tr_TR',

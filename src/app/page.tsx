@@ -1,238 +1,206 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { getAllCards } from '@/lib/db';
-import MatrixRain from '@/components/MatrixRain';
+import CopyEmail from '@/components/CopyEmail';
+import TableOfContents, { type TocItem } from '@/components/TableOfContents';
+import ProjectCard from '@/components/ProjectCard';
+import UpcomingProjectsCard from '@/components/UpcomingProjectsCard';
+import { GitHubIcon, LinkedInIcon, MailIcon, PinIcon, ExternalIcon } from '@/components/Icons';
+import {
+  profile,
+  projects,
+  upcomingProjects,
+  PROJECT_SLOTS,
+  experience,
+  education,
+  skills,
+  about,
+  certificates,
+} from '@/data/portfolio';
 
-export const dynamic = 'force-dynamic';
+// Sol menüde yalnızca ana başlıklar var, alt başlık yok
+const toc: TocItem[] = [
+  { id: 'giris', label: 'Giriş' },
+  { id: 'projeler', label: 'Projeler' },
+  { id: 'deneyim', label: 'Deneyim' },
+  { id: 'tech-stack', label: 'Tech Stack & Sertifikalar' },
+  { id: 'hakkimda', label: 'Hakkımda' },
+  { id: 'iletisim', label: 'İletişim' },
+];
+
+function SocialIcons({ size }: { size: number }) {
+  return (
+    <div className="socials">
+      <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><GitHubIcon size={size} /></a>
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><LinkedInIcon size={size} /></a>
+      <a href={`mailto:${profile.email}`} aria-label="E-posta" title="E-posta"><MailIcon size={size} /></a>
+    </div>
+  );
+}
 
 export default function Home() {
-  const cards = getAllCards();
+  const cardCount = projects.length + (upcomingProjects.length > 0 ? 1 : 0);
+  const emptySlots = Math.max(0, PROJECT_SLOTS - cardCount);
 
   return (
-    <div className="app-wrapper">
-      {/* SIDEBAR */}
-      <aside className="sidebar">
-        <Image 
-          src="/profile.jpg" 
-          alt="Sami Yıldız" 
-          width={260} 
-          height={260} 
-          className="profile-img"
-          priority
-        />
-        
-        <div className="sidebar-title">
-          <h1>Sami <span>Yıldız</span></h1>
-          <p>Yazılım Mühendisi <br/> Siber Güvenlik Uzmanı</p>
-        </div>
+    <div className="frame">
+      <div className="layout">
+        {/* SOL SIDEBAR: scrollspy */}
+        <aside className="sidebar">
+          <TableOfContents items={toc} />
+        </aside>
 
-        <nav className="sidebar-nav">
-          <Link href="#hakkimda">Hakkımda</Link>
-          <Link href="#tecrube">Tecrübe</Link>
-          <Link href="#sertifikalar">Sertifikalar</Link>
-          <Link href="#projeler">Projeler</Link>
-          <Link href="#iletisim">İletişim</Link>
-        </nav>
-
-        <div className="sidebar-footer">
-          <p>© 2026 Sami Yıldız</p>
-        </div>
-      </aside>
-
-      {/* MAIN CONTENT */}
-      <main className="main-content animate-fade-in">
-        
-        {/* HAKKIMDA */}
-        <section id="hakkimda" className="section">
-          <h2 className="section-title">&gt; Hakkımda</h2>
-          <div className="content-box">
-            <p>
-              Haliç Üniversitesi Yazılım Mühendisliği bölümünden İngilizce eğitim diliyle ve tam burslu olarak mezun oldum. Yazılım geliştirme süreçlerinde frontend ve backend taraflarını kapsayan çeşitli full-stack projelerde yer alarak uygulama geliştirme deneyimi edindim.
-            </p>
-            <p style={{ marginTop: '1rem' }}>
-              Geliştirme süreçlerimi Application Security (AppSec) ve Security by Design prensipleriyle destekliyorum. Web uygulama güvenliği ve pentest pratiğimi doğrudan mimariye yansıtarak; OWASP standartlarına uygun, güvenli API&apos;lar, kimlik doğrulama mekanizmaları ve zafiyetlere karşı dirençli backend servisleri geliştiriyorum.
-            </p>
-            <p style={{ marginTop: '1rem' }}>
-              Cloud altyapıları, containerization (Docker) ve modern CI/CD süreçlerini projelerime entegre ediyor; yapay zekâ araçlarını geliştirme iş akışlarıma dahil ederek performanslı ve ölçeklenebilir sistemler üretiyorum.
-            </p>
-          </div>
-        </section>
-
-        {/* TECRÜBE */}
-        <section id="tecrube" className="section">
-          <h2 className="section-title">&gt; Tecrübe</h2>
-          <div className="content-box">
-            <div className="timeline">
-              
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">20.07.2024 – 30.08.2024</span>
-                  <h3 className="timeline-title">Pantone Creative, İstanbul – Web Geliştirme Stajyeri</h3>
-                  <p className="timeline-description">React, Node.js ve JavaScript teknolojileriyle geliştirilen projelerin süreçlerinde yer alındı; sistemin Frontend ve Backend işleyişi ile API katmanları üzerinde çalışıldı.</p>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">15.09.2025 – 30.10.2025</span>
-                  <h3 className="timeline-title">TNC Group, İstanbul – Bilgi Teknolojileri Stajyeri</h3>
-                  <p className="timeline-description">Python ile temel programlama ve otomasyon scriptleri üzerine çalışıldı; Excel üzerinden veri yönetimi ve raporlama süreçleri yürütüldü.</p>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">13.03.2026 / 23.03.2026</span>
-                  <h3 className="timeline-title">Human Ports, Sırbistan – Uluslararası Stajyer</h3>
-                  <p className="timeline-description">Proje geliştirme süreçlerinde yer alınarak; şirketler hukuku ve operasyonel yönetim aşamaları üzerinde çalışıldı. Proje yönetimi ve ekip içi iş akış süreçlerinin uygulamaları yürütüldü.</p>
-                </div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-content">
-                  <span className="timeline-date">2021 – Güncel</span>
-                  <h3 className="timeline-title">Freelance Projeler</h3>
-                  <p className="timeline-description">Farklı markalar için web sitesi ve uygulama geliştirme süreçleri yürütülmekte; ayrıca sistem güvenlik açıklarının tespiti amacıyla bug bounty kapsamında freelance çalışmalara devam edilmektedir.</p>
-                </div>
-              </div>
-
+        {/* SAĞ: İÇERİK */}
+        <main className="content">
+          {/* GİRİŞ: solda başlık ve açıklama, sağ üstte fotoğraf */}
+          <section id="giris" className="section hero">
+            <div className="hero-text">
+              {/* İsim üst satırda, roller alt satırda */}
+              <h1 className="hero-title">
+                <span className="hero-name">{profile.name}</span>
+                <span className="hero-roles">
+                  {profile.roles.map((role, i) => (
+                    <span key={role}>
+                      {i > 0 && <span className="hero-sep" aria-hidden="true"> | </span>}
+                      {role}
+                    </span>
+                  ))}
+                </span>
+              </h1>
+              <p className="hero-loc">
+                <PinIcon /> {profile.location}
+              </p>
+              <p className="hero-pitch">{profile.pitch.join(' ')}</p>
+              <SocialIcons size={22} />
             </div>
-          </div>
-        </section>
+            <Image
+              src="/profile.png"
+              alt={profile.name}
+              width={280}
+              height={280}
+              className="hero-photo"
+              preload
+            />
+          </section>
 
-        {/* SERTİFİKALAR */}
-        <section id="sertifikalar" className="section">
-          <h2 className="section-title">&gt; Sertifikalar</h2>
-          <div className="matrix-container" style={{ minHeight: '520px', display: 'flex' }}>
-            <MatrixRain />
-            <div className="matrix-overlay">
-              <div className="contact-matrix-grid">
-                
-                {/* AWS CLOUD PRACTITIONER */}
-                <div className="contact-inner-card cert-card">
-                  <div className="cert-logo-container">
-                    <img src="/aws-practitioner.png" alt="AWS Certified Cloud Practitioner" className="cert-logo" />
-                  </div>
-                  <h3>AWS Cloud Practitioner</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', flexGrow: 1 }}>
-                    AWS hizmetleri, bulut bilişim temelleri, güvenlik, fiyatlandırma ve mimari konularında temel düzeyde bilgi sahibi olduğunuzu doğrular.
-                  </p>
-                  <a href="https://www.credly.com/badges/5fae1761-128f-49e5-8344-17132b32f6f9" target="_blank" rel="noopener noreferrer" className="btn">
-                    [ SERTİFİKAYI DOĞRULA ]
-                  </a>
-                </div>
-
-                {/* EF-SET SERTİFİKASI */}
-                <div className="contact-inner-card cert-card">
-                  <div className="cert-logo-container">
-                    <span className="cert-wordmark">EF SET</span>
-                  </div>
-                  <h3>EF-SET İngilizce Sertifikası</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', flexGrow: 1 }}>
-                    B2 Upper Intermediate (Orta Üstü) seviye. Karmaşık metinleri anlama, akıcı iletişim kurma ve teknik konularda detaylı fikir alışverişinde bulunabilme yetkinliğini temsil eder.
-                  </p>
-                  <a href="https://cert.efset.org/en/Cmb9M4" target="_blank" rel="noopener noreferrer" className="btn">
-                    [ SERTİFİKAYI DOĞRULA ]
-                  </a>
-                </div>
-
-
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PROJELER */}
-        <section id="projeler" className="section">
-          <h2 className="section-title">&gt; Projeler</h2>
-          {cards.length === 0 ? (
-            <div className="empty-state">
-              <p>&gt; ./system_scan --module=projects --status: NO_DATA_FOUND</p>
-              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#666' }}>Henüz veritabanına eklenmiş bir proje bulunmuyor.</p>
-            </div>
-          ) : (
-            <div className="cards-grid">
-              {cards.map((card) => (
-                <div key={card.id} className="card">
-                  {card.imageUrl && (
-                    <img src={card.imageUrl} alt={card.title} className="card-img" />
-                  )}
-                  <h3 className="card-title">{card.title}</h3>
-                  <p className="card-desc">{card.description}</p>
-                  
-                  {card.tags && (
-                    <div className="card-tags">
-                      {card.tags.split(',').map(tag => (
-                        <span key={tag} className="tag">{tag.trim()}</span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  <div className="card-meta">
-                    <span suppressHydrationWarning>{card.date ? card.date : new Date(card.createdAt!).toLocaleDateString('tr-TR')}</span>
-                    {card.link && card.link !== '#' ? (
-                      <a href={card.link} target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '0.4rem 0.8rem', fontSize: '0.75rem' }}>
-                        [ İNCELE ]
-                      </a>
-                    ) : card.link === '#' ? (
-                      <span className="btn" style={{ padding: '0.4rem 0.8rem', fontSize: '0.75rem', cursor: 'not-allowed', opacity: 0.5 }}>
-                        [ İNCELE ]
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
+          {/* PROJELER: 2x2 */}
+          <section id="projeler" className="section">
+            <h2 className="section-title">Projeler</h2>
+            <div className="projects">
+              {projects.map((p) => (
+                <ProjectCard key={p.title} project={p} />
+              ))}
+              {upcomingProjects.length > 0 && <UpcomingProjectsCard projects={upcomingProjects} />}
+              {Array.from({ length: emptySlots }, (_, i) => (
+                <div key={`empty-${i}`} className="project-card project-empty" aria-hidden="true" />
               ))}
             </div>
-          )}
-        </section>
+          </section>
 
-        {/* İLETİŞİM */}
-        <section id="iletisim" className="section" style={{ marginBottom: '2rem' }}>
-          <h2 className="section-title">&gt; İletişim</h2>
-          <div className="matrix-container" style={{ minHeight: '500px', display: 'flex' }}>
-            <MatrixRain />
-            <div className="matrix-overlay">
-              <div className="contact-matrix-grid">
-                
-                {/* CARD 1: İLETIŞIM BILGILERI */}
-                <div className="contact-inner-card">
-                  <h3>İletişim Bilgileri</h3>
-                  <div className="contact-info-list">
-                    <div className="contact-info-item">
-                      <span className="contact-info-label">E-Posta Adresi</span>
-                      <span className="contact-info-value">samiylz83@gmail.com</span>
-                    </div>
-                    <div className="contact-info-item">
-                      <span className="contact-info-label">Konum</span>
-                      <span className="contact-info-value">İstanbul, Türkiye</span>
-                    </div>
+          {/* DENEYİM */}
+          <section id="deneyim" className="section">
+            <h2 className="section-title">Deneyim</h2>
+            <ol className="timeline">
+              {experience.map((e) => (
+                <li key={e.company} className="timeline-item">
+                  <div className="timeline-meta">
+                    <span className="timeline-company">{e.company}</span>
+                    <span>{e.location}</span>
+                    <span>{e.period}</span>
                   </div>
-                </div>
-
-                {/* CARD 2: BAĞLANTILAR */}
-                <div className="contact-inner-card">
-                  <h3>Bağlantılar</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Dijital dünyadaki varlığımı ve projelerimi aşağıdaki platformlar üzerinden takip edebilirsiniz.</p>
-                  <div className="social-links-list">
-                    <a href="https://github.com/sami373761" target="_blank" rel="noopener noreferrer" className="btn" style={{ width: '100%', textAlign: 'left', paddingLeft: '1.5rem' }}>
-                      &gt; GITHUB REPOSITORY
-                    </a>
-                    <a href="https://www.linkedin.com/in/sami-yildiz/" target="_blank" rel="noopener noreferrer" className="btn" style={{ width: '100%', textAlign: 'left', paddingLeft: '1.5rem' }}>
-                      &gt; LINKEDIN NETWORK
-                    </a>
+                  <div className="timeline-body">
+                    <h3>{e.role}</h3>
+                    <ul className="bullets">
+                      {e.points.map((pt) => <li key={pt}>{pt}</li>)}
+                    </ul>
                   </div>
-                </div>
+                </li>
+              ))}
+              {education.map((ed) => (
+                <li key={ed.school} className="timeline-item">
+                  <div className="timeline-meta">
+                    <span className="timeline-company">{ed.school}</span>
+                    <span>{ed.location}</span>
+                    <span>{ed.period}</span>
+                  </div>
+                  <div className="timeline-body">
+                    <h3>{ed.degree}</h3>
+                    <ul className="bullets">
+                      {ed.points.map((pt) => <li key={pt}>{pt}</li>)}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
 
-              </div>
+          {/* TECH STACK & SERTİFİKALAR */}
+          <section id="tech-stack" className="section">
+            <h2 className="section-title">Tech Stack & Sertifikalar</h2>
+            {/* Tek çerçeve: her kategori tek satır, teknolojiler düz metin */}
+            <dl className="skills">
+              {skills.map((s) => (
+                <div key={s.category} className="skill-row">
+                  <dt>{s.category}</dt>
+                  <dd className="skill-items">
+                    {s.items.map((i, idx) => (
+                      <span key={typeof i === 'string' ? i : i.name}>
+                        {idx > 0 && <span className="skill-sep"> · </span>}
+                        {typeof i === 'string' ? i : (
+                          <>{i.name} <span className="tag-note">({i.note})</span></>
+                        )}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="certs">
+              {certificates.map((c) => (
+                <a key={c.name} href={c.url} target="_blank" rel="noopener noreferrer" className="cert">
+                  <img src={c.logo} alt="" className="cert-logo" />
+                  <span className="cert-text">
+                    <strong>{c.name}</strong>
+                    <small>{c.issuer} · Doğrula ↗</small>
+                  </span>
+                </a>
+              ))}
             </div>
-          </div>
-        </section>
-        
-      </main>
+          </section>
+
+          {/* HAKKIMDA */}
+          <section id="hakkimda" className="section">
+            <h2 className="section-title">Hakkımda</h2>
+            <p className="about-text">{about}</p>
+            <p className="about-note">
+              Diğer proje ve çalışmalarımı incelemek için{' '}
+              <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub sayfamı</a>{' '}
+              ziyaret edebilirsiniz.
+            </p>
+          </section>
+
+          {/* İLETİŞİM */}
+          <section id="iletisim" className="section contact">
+            <h2 className="section-title">İletişim</h2>
+            <p className="contact-sub">Yeni projeler ve pozisyonlar için e-posta en hızlı yol.</p>
+            {/* Tech Stack ile aynı yapı: tek çerçeve, her kanal bir satır */}
+            <div className="contact-card">
+              <div className="contact-item">
+                <span className="contact-label"><MailIcon size={18} /> E-posta</span>
+                <CopyEmail email={profile.email} />
+              </div>
+              <a className="contact-item" href={profile.github} target="_blank" rel="noopener noreferrer">
+                <span className="contact-label"><GitHubIcon size={18} /> GitHub</span>
+                <span className="contact-value">{profile.github.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} <ExternalIcon size={16} /></span>
+              </a>
+              <a className="contact-item" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                <span className="contact-label"><LinkedInIcon size={18} /> LinkedIn</span>
+                <span className="contact-value">{profile.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} <ExternalIcon size={16} /></span>
+              </a>
+            </div>
+            <p className="footer-meta">© {new Date().getFullYear()} {profile.name} · Son güncelleme: {profile.lastUpdated}</p>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
